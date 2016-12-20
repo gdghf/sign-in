@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/gdghf/sign-in/issues"
   },
-  "homepage": "https://github.com/gdghf/sign-in#readme"
+  "homepage": "https://github.com/gdghf/sign-in#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.16"
+  }
 }
