@@ -1,16 +1,31 @@
-var http = require('http');
+var express = require('express'),
+    fs = require('fs'),
+    mongoose = require('mongoose');
 
-var server = http.createServer((req, res) => {
+// mongoose.connect('mongodb://192.168.1.231/sign-in');
 
-    res.writeHead(200, {
-        'Content-Type': 'text/plain'
-    });
+// var db = mongoose.connection;
 
-    res.end('okay');
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function () {
+//     console.log('connected!')u
+// });
+
+var app = express();
+
+app.set('port', 3000);
+app.set('x-powered-by', false);
+
+//load all routes
+fs.readdirSync('./routes').forEach(function (e) {
+
+    e = e.replace('.js', '');
+    app.use('/' + e, require('./routes/' + e));
+}, this);
+
+app.listen(app.get('port'), function () {
+
+    console.log("Server listening on: http://localhost:%s", 3000);
 });
 
-//start the server
-server.listen(2345, function () {
-
-    console.log("Server listening on: http://localhost:%s", 2345);
-});
+module.exports = app;
