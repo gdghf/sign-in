@@ -1,8 +1,9 @@
 var express = require('express'),
     fs = require('fs'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    config = require('./config');
 
-mongoose.connect('mongodb://192.168.1.231/sign-in');
+mongoose.connect(config.mongodb);
 
 var db = mongoose.connection;
 
