@@ -2,13 +2,8 @@ var mongoose = require('mongoose'),
     schema = mongoose.Schema;
 
 //define user schema
-var user_schema = new Schema({
-    id: {
-        type: ObjectId,
-        required: true,
-        unique: true
-    },
-    usern_name: {
+var user_schema = new schema({
+    user_name: {
         type: String,
         required: true
     },

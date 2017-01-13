@@ -2,14 +2,14 @@ var express = require('express'),
     fs = require('fs'),
     mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://192.168.1.231/sign-in');
+mongoose.connect('mongodb://192.168.1.231/sign-in');
 
-// var db = mongoose.connection;
+var db = mongoose.connection;
 
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function () {
-//     console.log('connected!')u
-// });
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log('connected!')
+});
 
 var app = express();
 
