@@ -13,7 +13,7 @@ router.get('/:id', function (req, res) {
     user.findOne({ _id: req.params.id }, function (err, data) {
         if (err) throw err;
 
-        res.json(user);
+        res.json({ code: 1, data: user });
     });
 });
 
@@ -36,9 +36,9 @@ router.put('/', function (req, res) {
     });
 
     data.save(function (err, data) {
+        if (err) throw err;
 
-        console.log('saved!');
-        res.send('添加成功');
+        res.json({ code: 1, msg: 'add user successed' });
     });
 });
 
@@ -65,7 +65,7 @@ router.post('/:id', function (req, res) {
         data.save(function (err, data) {
             if (err) throw err;
 
-            res.json({ code: 1, msg: '修改成功' });
+            res.json({ code: 1, msg: 'modify user successed' });
         });
     });
 });
@@ -79,7 +79,7 @@ router.delete('/:id', function (req, res) {
         data.remove(function (err) {
             if (err) throw err;
 
-            res.json({ code: 1, msg: '删除成功' });
+            res.json({ code: 1, msg: 'delete user successed' });
         });
     });
 });
