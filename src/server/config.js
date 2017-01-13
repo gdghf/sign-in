@@ -1,3 +1,3 @@
 module.exports = {
-    mongodb: 'mongodb://192.168.1.231/sign-in'
+    mongodb: 'mongodb://182.92.234.116:9990/sign-in'
 };
