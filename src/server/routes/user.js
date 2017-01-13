@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
 //get user by id
 router.get('/:id', function (req, res) {
 
-    user.findOne({ _id: req.params.id }, function (err, user) {
+    user.findOne({ _id: req.params.id }, function (err, data) {
         if (err) throw err;
 
         res.json(user);
@@ -20,7 +20,7 @@ router.get('/:id', function (req, res) {
 //put user to db
 router.put('/', function (req, res) {
 
-    var user_info = new user({
+    var data = new user({
         user_name: 'leixu2txtek',
         display_name: 'Lei Xu',
         password: '111111',
@@ -35,7 +35,7 @@ router.put('/', function (req, res) {
         }
     });
 
-    user_info.save(function (err, doc) {
+    data.save(function (err, data) {
 
         console.log('saved!');
         res.send('添加成功');
@@ -43,13 +43,45 @@ router.put('/', function (req, res) {
 });
 
 //modify user
-router.post('/', function (req, res) {
+router.post('/:id', function (req, res) {
 
+    user.findOne({ _id: req.params.id }, function (err, data) {
+        if (err) throw err;
+
+        //TODO validate params
+
+        if (req.params.display_name) data.display_name = req.params.display_name.trim();
+        if (req.params.sex) data.sex = req.params.sex;
+        if (req.params.age) data.age = req.params.age;
+        if (req.params.school) data.school = req.params.school.trim();
+
+        if (req.params.company) {
+
+            if (req.params.company.name) data.company.name = req.params.company.name.trim();
+            if (req.params.company.title) data.company.title = req.params.company.title.trim();
+            if (req.params.company.location) data.company.location = req.params.company.location.trim();
+        }
+
+        data.save(function (err, data) {
+            if (err) throw err;
+
+            res.json({ code: 1, msg: '修改成功' });
+        });
+    });
 });
 
 //delete user by id
 router.delete('/:id', function (req, res) {
 
+    user.findOne({ _id: req.params.id }, function (err, data) {
+        if (err) throw err;
+
+        data.remove(function (err) {
+            if (err) throw err;
+
+            res.json({ code: 1, msg: '删除成功' });
+        });
+    });
 });
 
 module.exports = router;
