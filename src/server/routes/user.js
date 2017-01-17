@@ -55,20 +55,60 @@ router.get('/:id', function (req, res) {
 //put user to db
 router.put('/', function (req, res) {
 
-    var data = new user({
-        user_name: 'leixu2txtek',
-        display_name: 'Lei Xu',
-        password: '111111',
-        date_created: new Date(),
-        sex: '男',
-        age: 25,
-        school: '中国科技大学',
-        company: {
-            name: '安徽讯飞皆成软件技术有限公司',
-            title: '软件开发工程师',
-            location: '安徽合肥'
+    var data = { date_created: new Date(), company: {} };
+
+    //validate username
+    {
+        var user_name = req.params.user_name.trim();
+        if (!user_name) {
+
+            res.json({ code: -1, msg: '用户名不能为空' });
+            return;
         }
-    });
+
+        data.user_name = user_name;
+    }
+
+    //validate display_name
+    {
+        var display_name = req.params.display_name.trim();
+        if (!display_name) {
+
+            res.json({ code: -2, msg: '用户显示名称不能为空' });
+            return;
+        }
+
+        data.display_name = display_name;
+    }
+
+    //validate age
+    {
+        var age = parseInt(req.params.age);
+        if (NaN(age) || age <= 0 || age >= 100) {
+
+            res.json({ code: -3, msg: '用户年龄不正确' });
+            return;
+        }
+
+        data.age = age;
+    }
+
+    //validate sex
+    {
+        var sex = req.params.sex.trim();
+        if (!sex || (sex != '男' || sex != '女')) {
+
+            res.json({ code: -4, msg: '用户性别不正确' });
+            return;
+        }
+
+        data.sex = sex;
+    }
+
+    if (!req.params.school) data.school = req.params.school.trim();
+    if (!req.params.name) data.company.name = req.params.name.trim();
+    if (!req.params.title) data.company.title = req.params.title.trim();
+    if (!req.params.location) data.company.location = req.params.location.trim();
 
     data.save(function (err, data) {
         if (err) throw err;
