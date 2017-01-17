@@ -5,6 +5,41 @@ var express = require('express'),
 //get all user
 router.get('/', function (req, res) {
 
+    var query = {};
+
+    if (req.query.display_name) query.display_name = new RegExp(req.query.display_name.trim(), 'gi');
+    if (req.query.sex) query.sex = req.query.sex.trim();
+    if (req.query.age) query.age = req.query.age.trim();
+    if (req.query.school) query.school = new RegExp(req.query.school.trim(), 'gi');
+
+    var options = {
+        select: '_id user_name display_name date_created sex age school company',
+        page: req.query.page || 1,
+        limit: req.query.page_size || 10,
+        sort: {}
+    };
+
+    //define query with sort field
+    if (req.query.sort) {
+
+        var sort = req.query.sort.replace(/-|\s/g, '');
+        options.sort[sort] = req.query.sort.startsWith('-') ? -1 : 1;
+    }
+
+    user.paginate(query, options, function (err, data) {
+        if (err) throw err;
+
+        res.json({
+            code: 1,
+            data: data.docs,
+            paging: {
+                total_count: data.total,
+                page_size: data.limit,
+                page_index: data.page
+            },
+            orderbys: 'user_name,display_name,date_created,sex,age,school'
+        });
+    });
 });
 
 //get user by id
