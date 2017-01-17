@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     schema = mongoose.Schema;
 
 //define user schema
-var user_schema = new schema({
+var user = new schema({
     user_name: {
         type: String,
         required: true
@@ -31,6 +31,6 @@ var user_schema = new schema({
 });
 
 //pagenation plugin
-user_schema.plugin(paginate);
+user.plugin(paginate);
 
-module.exports = mongoose.model('user', user_schema);
+module.exports = mongoose.model('user', user);
