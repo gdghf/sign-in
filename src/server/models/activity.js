@@ -15,6 +15,22 @@ var activity = new schema({
     date_created: {
         type: Date,
         required: true
+    },
+    date_start: {
+        type: Date,
+        required: true
+    },
+    date_end: {
+        type: Date,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    creator: {
+        type: String,
+        required: true
     }
 });
 
