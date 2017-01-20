@@ -3,6 +3,8 @@ var express = require('express'),
 
 const util = require('util');
 
-router.get('/', function (req, res) {});
+router.get('/', function (req, res) {
+    res.send('activity');
+});
 
 module.exports = router;

@@ -48,7 +48,7 @@ router.get('/:id', function (req, res) {
     user.findOne({ _id: req.params.id }, function (err, data) {
         if (err) throw err;
 
-        res.json({ code: 1, data: user });
+        res.json({ code: 4});
     });
 });
 
