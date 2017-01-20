@@ -21,7 +21,8 @@
   "homepage": "https://github.com/gdghf/sign-in#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "mongoose": "^4.7.6",
+    "mongoose": "^4.7.7",
+    "mongoose-paginate": "^5.0.3",
     "request": "^2.79.0"
   }
 }
