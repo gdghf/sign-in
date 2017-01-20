@@ -1,13 +1,24 @@
-var express = require('express');
-var app = express();
+var mongoose = require('mongoose'),
+    paginate = require('mongoose-paginate'),
+    schema = mongoose.Schema;
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
+//define activity schema
+var activity = new schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    date_created: {
+        type: Date,
+        required: true
+    }
 });
 
-var server = app.listen(3000, function () {
-    var host = server.address().address;
-    var port = server.address().port;
+//pagenation plugin
+activity.plugin(paginate);
 
-    console.log('Example app listening at http://%s:%s', host, port);
-});
+module.exports = mongoose.model('activity', activity);

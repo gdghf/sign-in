@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/gdghf/sign-in#readme",
   "dependencies": {
+    "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "mongoose": "^4.7.7",
     "mongoose-paginate": "^5.0.3",
