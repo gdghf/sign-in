@@ -26,7 +26,8 @@ var relation = new schema({
     },
     source: {
         type: String,
-        required: true
+        required: true,
+        default: 'Google Form'
     }
 });
 
