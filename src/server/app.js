@@ -1,7 +1,8 @@
 var express = require('express'),
     fs = require('fs'),
     mongoose = require('mongoose'),
-    config = require('./config');
+    config = require('./config/config');
+var bodyParser     =         require("body-parser");
 
 mongoose.connect(config.mongodb);
 
@@ -13,7 +14,7 @@ db.once('open', function () {
 });
 
 var app = express();
-
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.set('port', 3000);
 app.set('x-powered-by', false);
 
