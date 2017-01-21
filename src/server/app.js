@@ -1,8 +1,8 @@
 var express = require('express'),
     fs = require('fs'),
     mongoose = require('mongoose'),
-    config = require('./config/config');
-var bodyParser     =         require("body-parser");
+    config = require('./config/config'),
+    bodyParser = require('body-parser');
 
 mongoose.connect(config.mongodb);
 
