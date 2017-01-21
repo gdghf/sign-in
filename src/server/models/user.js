@@ -22,6 +22,7 @@ var user = new schema({
     },
     sex: String,
     age: Number,
+    mobile: String,
     school: String,
     company: {
         name: String,
