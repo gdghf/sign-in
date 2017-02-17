@@ -1,0 +1,96 @@
+a {
+    text-decoration: none;
+}
+.navbar {
+    position: fixed;
+    background-color: #00BBD3;
+    height: auto;
+    z-index: 1;
+}
+.header-first {
+    height: 55%;
+}
+.header-second {
+    height: 45%;
+}
+.header-first div {
+    position: relative;
+    height: 100%;
+    text-align: center;
+}
+.header-first span {
+    position: relative;
+    top: 30%;
+}
+.header-first .font-signin {
+    float: left;
+}
+.header-first .font-signin a {
+    color: white;
+    font-size: 20px;
+}
+.header-first img {
+    height: 40%;
+    width: 40%;
+}
+.header-first .hamburgermenu {
+    display: none;
+}
+.header-second div {
+    height: 100%;
+    padding: 0;
+}
+.header-second>div {
+    position: relative;
+    text-align: center;
+}
+.header-second div span {
+    color: white;
+    position: absolute;
+    top: 30%;
+}
+.content {
+    margin-top: 112px;
+    z-index: -1;
+}
+.content-part {
+    box-shadow: 1px 2px 2px #555;
+    margin-bottom: 10px;
+}
+.content-part-bottom div {
+    text-align: center;
+    padding: 10px;
+}
+.content-part-bottom img {
+    width: 20px;
+}
+.fab-btn {
+    position: fixed;
+    left: 288px;
+    top: 496px;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    background-color: #00BBD3;
+}
+.sociaty {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    background-color: white;
+    z-index: 1;
+    box-shadow: -3px 0px 3px #555;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: none;
+}
+.sociaty div {
+    margin: 5px 0px 5px;
+}
+.sociaty span {
+    text-align: center;
+}
+.sociaty img {
+    margin-left: 35%;
+    width: 40px;
+}
