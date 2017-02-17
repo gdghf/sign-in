@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.set('port', 3000);
 app.set('x-powered-by', false);
 
+
+
 //load all routes
 fs.readdirSync('./routes').forEach(function (e) {
 
@@ -25,6 +27,11 @@ fs.readdirSync('./routes').forEach(function (e) {
     app.use('/' + e, require('./routes/' + e));
 }, this);
 
+app.use(function(err, req, res, next) {
+    console.log(err);
+    var errMessage = err.message ? err.message : 'error';
+    res.status(500).send(errMessage);
+});
 app.listen(app.get('port'), function () {
 
     console.log("Server listening on: http://localhost:%s", 3000);
