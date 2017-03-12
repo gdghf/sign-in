@@ -27,7 +27,7 @@ src                                 源代码
 `cd your/project/path/sign-in/src/server && cnpm install `  
 ps: [cnpm 相关](https://npm.taobao.org/)
 3. 运行程序  
-`npm run dev` 你会看到
+`npm start` 你会看到
 ```
 
 > sign-in@0.0.1 dev /your/project/path/sign-in/src/server
@@ -49,10 +49,20 @@ Press rs for restarting the process.
 # todo
 - [x] 梳理需求
 - [x] 框架搭建
-- [ ] UI设计
+- [X] UI设计
 - [ ] 服务端开发
 - [ ] 移动端开发
 - [ ] web端开发
+- [ ] 代码规范(前端后端)
+- [ ] 单元测试
+- [ ] 构建的钩子travis 
+- [ ] google form 接口调研
+- [ ] 服务日志收集
+
+
+# Schedule 
+[Schedule](/documents/Schedule.md)
+
 
 
 
