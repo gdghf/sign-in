@@ -28,23 +28,18 @@ src                                 源代码
 ps: [cnpm 相关](https://npm.taobao.org/)
 3. 运行程序  
 `npm start` 你会看到
+
 ```
 
-> sign-in@0.0.1 dev /your/project/path/sign-in/src/server
-> supervisor app.js
+> sign-in@0.0.1 start E:\Workbench\nodejs\sign-in\src\server
+> nodemon ./bin/www --ignore ./public
 
+[nodemon] 1.11.0
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: *.*
+[nodemon] starting `node ./bin/www`
 
-Running node-supervisor with
-  program 'app.js'
-  --watch '.'
-  --extensions 'node,js'
-  --exec 'node'
-
-Starting child process with 'node app.js'
-Watching directory '/Users/xiabin/WebstormProjects/sign-in/src/server' for changes.
-Press rs for restarting the process.
 ```
-
 
 # todo
 - [x] 梳理需求
@@ -63,7 +58,13 @@ Press rs for restarting the process.
 # Schedule 
 [Schedule](/documents/Schedule.md)
 
+# 生成接口说明文档
 
+```
 
+cd your/project/path/sign-in/src/server && cnpm install apidoc -g 
+npm run-script gen-doc
 
+```
 
+然后在目录下会生成doc文件夹，打开index.html即可看到说明文档
