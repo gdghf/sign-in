@@ -1,13 +1,16 @@
 var express = require('express'),
     fs = require('fs'),
     config = require('./config'),
-    bodyParser = require('body-parser'),
     path = require('path');
 
+var body_parser = require('body-parser');
+
 var app = express();
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 app.set('port', 3000);
 app.set('x-powered-by', false);
+
+app.use(body_parser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/favicon.ico', (req, res) => {
 
@@ -32,7 +35,6 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-    debugger;
     console.error('request url ' + req.path + ' ' + err.stack);
 
     if (config.env !== 'development') err.debug = undefined;
@@ -42,6 +44,5 @@ app.use((err, req, res, next) => {
 
     res.jsonp(err);
 });
-
 
 module.exports = app;

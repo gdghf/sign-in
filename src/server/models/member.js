@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     schema = mongoose.Schema;
 
 //define user schema
-var user = new schema({
+var member = new schema({
     user_name: {
         type: String,
         required: true
@@ -28,7 +28,8 @@ var user = new schema({
         name: String,
         title: String,
         location: String
-    }
+    },
+    specialty: String
 });
 
 //pagenation plugin

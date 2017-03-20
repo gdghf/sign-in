@@ -1,5 +1,6 @@
 src/server/.vscode/
 src/server/node_modules/
+src/server/doc/
 .git
 # phpstorm project files
 .idea
