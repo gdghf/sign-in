@@ -1,10 +1,10 @@
 var express = require('express'),
     router = express.Router(),
-    user = require('../models/user');
+    User = require('../models/user');
 
 /**
- * @api {get} /member/ 获取所有成员信息
- * @apiGroup member
+ * @api {get} /user/ 获取所有用户信息
+ * @apiGroup user
  * 
  * @apiParam {string} display_name 用户名称
  * @apiParam {string} sex 性别
@@ -17,7 +17,7 @@ var express = require('express'),
  *      data:
  *      [
  *          {
- *              _id: '成员ID',
+ *              _id: '用户ID',
  *              user_name: '用户名',
  *              display_name: '显示名',
  *              date_created: '创建时间',
@@ -64,7 +64,7 @@ router.get('/', function (req, res) {
         options.sort[sort] = req.query.sort.startsWith('-') ? -1 : 1;
     }
 
-    user.paginate(query, options, function (err, data) {
+    User.paginate(query, options, function (err, data) {
         if (err) throw err;
 
         res.json({
@@ -81,10 +81,10 @@ router.get('/', function (req, res) {
 });
 
 /**
- * @api {get} /member/{id} 获取指定ID的成员信息
- * @apiGroup member
+ * @api {get} /user/{id} 获取单个用户信息
+ * @apiGroup user
  * 
- * @apiParam {string} id 成员ID
+ * @apiParam {string} id 用户ID
  * 
  * @apiSuccessExample {json} 返回值
  * {
@@ -106,11 +106,23 @@ router.get('/', function (req, res) {
  *          }
  *      }
  * }
+ * 
+ * @apiErrorExample {json} 错误信息
+ * {
+ *      code: -1,
+ *      msg: '指定ID的用户不存在'
+ * }
  */
 router.get('/:id', function (req, res) {
 
-    user.findOne({ _id: req.params.id }, function (err, data) {
+    User.findOne({ _id: req.params.id }, function (err, data) {
         if (err) throw err;
+
+        if (!data) {
+
+            res.json({ code: -1, msg: '指定ID的用户不存在' });
+            return;
+        }
 
         res.json({
             code: 1,
@@ -128,14 +140,57 @@ router.get('/:id', function (req, res) {
     });
 });
 
-
+/**
+ * @api {put} /user 添加新用户
+ * @apiGroup user
+ * 
+ * @apiParam {string} user_name         用户名
+ * @apiParam {string} display_name      显示名
+ * @apiParam {string} age               年龄
+ * @apiParam {string} sex               性别
+ * @apiParam {string} school            学校
+ * @apiParam {string} name              公司名称
+ * @apiParam {string} title             公司职位
+ * @apiParam {string} location          公司地点
+ * 
+ * @apiSuccessExample {json} 正确信息
+ * {
+ *      code: 1,
+ *      msg: '成员信息更新成功'
+ * }
+ * 
+ * @apiErrorExample {json} 错误信息
+ * {
+ *      code: -1,
+ *      msg: '指定ID的用户不存在'
+ * }
+ * 
+ * {
+ *      code: -2,
+ *      msg: '用户显示名称不能为空'
+ * }
+ * 
+ * {
+ *      code: -3,
+ *      msg: '用户年龄不正确'
+ * }
+ * 
+ * {
+ *      code: -4,
+ *      msg: '用户性别不正确'
+ * }
+ */
 router.put('/', function (req, res) {
 
-    var data = { date_created: new Date(), company: {} };
+    var data = new User();
+
+    data.date_created = new Date();
+    data.company = {};
+    data.password = '111111';
 
     //validate username
     {
-        var user_name = req.params.user_name.trim();
+        var user_name = req.body.user_name && req.body.user_name.trim();
         if (!user_name) {
 
             res.json({ code: -1, msg: '用户名不能为空' });
@@ -147,7 +202,7 @@ router.put('/', function (req, res) {
 
     //validate display_name
     {
-        var display_name = req.params.display_name.trim();
+        var display_name = req.body.display_name && req.body.display_name.trim();
         if (!display_name) {
 
             res.json({ code: -2, msg: '用户显示名称不能为空' });
@@ -159,8 +214,8 @@ router.put('/', function (req, res) {
 
     //validate age
     {
-        var age = parseInt(req.params.age);
-        if (NaN(age) || age <= 0 || age >= 100) {
+        var age = parseInt(req.body.age);
+        if (isNaN(age) || age <= 0 || age >= 100) {
 
             res.json({ code: -3, msg: '用户年龄不正确' });
             return;
@@ -171,8 +226,8 @@ router.put('/', function (req, res) {
 
     //validate sex
     {
-        var sex = req.params.sex.trim();
-        if (!sex || (sex != '男' || sex != '女')) {
+        var sex = req.body.sex.trim();
+        if (!sex || (sex != '男' && sex != '女')) {
 
             res.json({ code: -4, msg: '用户性别不正确' });
             return;
@@ -181,10 +236,10 @@ router.put('/', function (req, res) {
         data.sex = sex;
     }
 
-    if (!req.params.school) data.school = req.params.school.trim();
-    if (!req.params.name) data.company.name = req.params.name.trim();
-    if (!req.params.title) data.company.title = req.params.title.trim();
-    if (!req.params.location) data.company.location = req.params.location.trim();
+    if (req.body.school) data.school = req.body.school.trim();
+    if (req.body.name) data.company.name = req.body.name.trim();
+    if (req.body.title) data.company.title = req.body.title.trim();
+    if (req.body.location) data.company.location = req.body.location.trim();
 
     data.save(function (err, data) {
         if (err) throw err;
@@ -193,17 +248,78 @@ router.put('/', function (req, res) {
     });
 });
 
-
+/**
+ * @api {post} /user/{id} 更新单个用户信息
+ * @apiGroup user
+ * 
+ * @apiParam {string} id                成员ID
+ * @apiParam {string} user_name         用户名
+ * @apiParam {string} display_name      显示名
+ * @apiParam {string} age               年龄
+ * @apiParam {string} sex               性别
+ * @apiParam {string} school            学校
+ * @apiParam {string} name              公司名称
+ * @apiParam {string} title             公司职位
+ * @apiParam {string} location          公司地点
+ * 
+ * @apiSuccessExample {json} 正确信息
+ * {
+ *      code: 1,
+ *      msg: '成员信息更新成功'
+ * }
+ * 
+ * @apiErrorExample {json} 错误信息
+ * {
+ *      code: -1,
+ *      msg: '指定ID的用户不存在'
+ * }
+ * 
+ * {
+ *      code: -2,
+ *      msg: '用户年龄不正确'
+ * }
+ * 
+ * {
+ *      code: -3,
+ *      msg: '用户性别不正确'
+ * }
+ */
 router.post('/:id', function (req, res) {
 
-    user.findOne({ _id: req.params.id }, function (err, data) {
+    User.findOne({ _id: req.params.id }, function (err, data) {
         if (err) throw err;
 
-        //TODO validate params
+        if (!data) {
+
+            res.json({ code: -1, msg: '指定ID的用户不存在' });
+            return;
+        }
+
+        //validate age
+        {
+            var age = parseInt(req.params.age);
+            if (NaN(age) || age <= 0 || age >= 100) {
+
+                res.json({ code: -2, msg: '用户年龄不正确' });
+                return;
+            }
+
+            data.age = age;
+        }
+
+        //validate sex
+        {
+            var sex = req.params.sex && req.params.sex.trim();
+            if (sex && (sex != '男' || sex != '女')) {
+
+                res.json({ code: -3, msg: '用户性别不正确' });
+                return;
+            }
+
+            data.sex = sex;
+        }
 
         if (req.params.display_name) data.display_name = req.params.display_name.trim();
-        if (req.params.sex) data.sex = req.params.sex;
-        if (req.params.age) data.age = req.params.age;
         if (req.params.school) data.school = req.params.school.trim();
 
         if (req.params.company) {
@@ -216,16 +332,16 @@ router.post('/:id', function (req, res) {
         data.save(function (err, data) {
             if (err) throw err;
 
-            res.json({ code: 1, msg: 'modify user successed' });
+            res.json({ code: 1, msg: '成员信息更新成功' });
         });
     });
 });
 
 /**
- * @api {delete} /member/{id} 删除指定ID的成员
- * @apiGroup member
+ * @api {delete} /user/{id} 删除单个用户信息
+ * @apiGroup user
  * 
- * @apiParam {string} id 成员ID
+ * @apiParam {string} id 用户ID
  * 
  * @apiSuccessExample {json} 正确信息
  * {
@@ -241,7 +357,7 @@ router.post('/:id', function (req, res) {
  */
 router.delete('/:id', function (req, res) {
 
-    user.findOne({ _id: req.params.id }, function (err, data) {
+    User.findOne({ _id: req.params.id }, function (err, data) {
         if (err) throw err;
 
         if (!data) {

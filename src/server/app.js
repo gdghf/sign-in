@@ -10,10 +10,15 @@ var app = express();
 app.set('port', 3000);
 app.set('x-powered-by', false);
 
-app.use(body_parser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+// parse application/x-www-form-urlencoded
+app.use(body_parser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(body_parser.json());
 
 app.get('/favicon.ico', (req, res) => {
 
+    //TODO
     res.sendStatus(204);
 });
 

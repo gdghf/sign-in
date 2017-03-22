@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     schema = mongoose.Schema;
 
 //define user schema
-var member = new schema({
+var user = new schema({
     user_name: {
         type: String,
         required: true
