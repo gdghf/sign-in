@@ -3,7 +3,8 @@ var express = require('express'),
     config = require('./config'),
     path = require('path');
 
-var body_parser = require('body-parser');
+var jwt = require('express-jwt'),
+    body_parser = require('body-parser');
 
 var app = express();
 
@@ -15,6 +16,8 @@ app.use(body_parser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(body_parser.json());
+
+// app.use(jwt({ secret: new Buffer('donotmidifythisstring', 'base64') }));
 
 app.get('/favicon.ico', (req, res) => {
 
@@ -28,6 +31,13 @@ fs.readdirSync(path.join(__dirname, 'routes')).forEach(function (e) {
     e = e.replace('.js', '');
     app.use('/' + e, require('./routes/' + e));
 }, this);
+
+//handle unauthorized
+app.use(function (err, req, res, next) {
+
+    if (err.name === 'UnauthorizedError') return res.status(401).send();
+    next();
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

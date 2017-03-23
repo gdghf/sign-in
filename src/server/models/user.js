@@ -29,7 +29,9 @@ var user = new schema({
         title: String,
         location: String
     },
-    specialty: String
+    avatar_url: String,
+    specialty: String,
+    role: String
 });
 
 //pagenation plugin
