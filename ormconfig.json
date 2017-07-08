@@ -1,14 +1,13 @@
 [
     {
-        "environment": "dev",
         "name": "sign",
         "driver": {
             "type": "mysql",
-            "host": "rm-uf655k8o2c5wx86cvo.mysql.rds.aliyuncs.com",
+            "host": "45.76.102.112",
             "port": 3306,
-            "username": "root",
-            "password": "Youyisi1ke",
-            "database": "db_org",
+            "username": "gdg",
+            "password": "hefeigdg",
+            "database": "sign",
             "extra": {
                 "charset": "utf8mb4_unicode_ci"
             }
@@ -16,6 +15,7 @@
         "entities": [
             "build/entity/*.js"
         ],
+        "autoSchemaSync": true,
         "logging": {
             "logQueries": true,
             "logSchemaCreation": true
