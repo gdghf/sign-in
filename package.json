@@ -1,0 +1,35 @@
+{
+  "name": "sign-in",
+  "version": "1.0.0",
+  "description": "合肥GDG活动管理系统",
+  "main": "server.js",
+  "scripts": {
+    "build": "tsc --sourceMap false",
+    "pm2": "pm2 start --no-daemon process.json",
+    "doc": "apidoc -i build/router/ -o doc/"
+  },
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
+    "koa-json": "^2.0.2",
+    "koa-jwt": "^3.2.2",
+    "koa-logger": "^3.0.0",
+    "koa-router": "^7.2.1",
+    "moment": "^2.18.1",
+    "mysql": "^2.13.0",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.1.0-alpha.19",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.39",
+    "@types/koa-json": "^2.0.16",
+    "@types/koa-jwt": "^3.2.0",
+    "@types/koa-logger": "^2.0.2",
+    "@types/koa-router": "^7.0.22",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^8.0.1",
+    "@types/uuid": "^3.0.0",
+    "supervisor": "^0.12.0"
+  }
+}

@@ -1,0 +1,25 @@
+[
+    {
+        "environment": "dev",
+        "name": "org",
+        "driver": {
+            "type": "mysql",
+            "host": "rm-uf655k8o2c5wx86cvo.mysql.rds.aliyuncs.com",
+            "port": 3306,
+            "username": "root",
+            "password": "Youyisi1ke",
+            "database": "db_org",
+            "extra": {
+                "charset": "utf8mb4_unicode_ci"
+            }
+        },
+        "entities": [
+            "build/entity/*.js"
+        ],
+        "autoSchemaSync": true,
+        "logging": {
+            "logQueries": true,
+            "logSchemaCreation": true
+        }
+    }
+]

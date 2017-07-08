@@ -1,16 +1,16 @@
 {
     "apps": [
         {
-            "name": "sing-in",
-            "script": "./bin/www",
+            "name": "sign-in",
+            "script": "./server.js",
             "log_date_format": "YYYY-MM-DD HH:mm Z",
-            "out_file": "./logs/pm2-out.log",
-            "error_file": "./logs/pm2-err.log",
+            "out_file": "./logs/out.log",
+            "error_file": "./logs/err.log",
             "watch": "false",
             "exec_mode": "fork_mode",
             "env": {
                 "NODE_ENV": "production",
-                "PORT": 4000
+                "PORT": 8901
             }
         }
     ]

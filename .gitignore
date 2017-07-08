@@ -1,20 +1,4 @@
-src/server/.vscode/
-src/server/node_modules/
-src/server/doc/
-.git
-# phpstorm project files
-.idea
-
-# netbeans project files
-nbproject
-
-# zend studio for eclipse project files
-.buildpath
-.project
-.settings
-
-# windows thumbnail cache
-Thumbs.db
-
-# Mac DS_Store Files
-.DS_Store
+node_modules/
+build/*
+package-lock.json
+.vscode/
