@@ -1,7 +1,7 @@
 [
     {
         "environment": "dev",
-        "name": "org",
+        "name": "sign",
         "driver": {
             "type": "mysql",
             "host": "rm-uf655k8o2c5wx86cvo.mysql.rds.aliyuncs.com",
@@ -16,7 +16,6 @@
         "entities": [
             "build/entity/*.js"
         ],
-        "autoSchemaSync": true,
         "logging": {
             "logQueries": true,
             "logSchemaCreation": true
